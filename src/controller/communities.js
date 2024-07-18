@@ -20,7 +20,7 @@ const getByid = async (req, res) =>{
     try {
         const data = await communitiesModel.getByid(id);
         res.json({
-            message: 'GET id communitis success',
+            message: 'GET id communities success',
             data:data
         })
     } catch (error) {
