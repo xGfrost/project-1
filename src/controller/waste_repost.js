@@ -49,7 +49,6 @@ const createNew = async (req, res) => {
 const update = async (req, res) => {
     const {idReports} = req.params;
     const {body} = req;
-    console.log(body)
 
     try {
         await reportsModel.update(body, idReports);

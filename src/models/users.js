@@ -1,5 +1,4 @@
 const dbPool = require('../config/database');
-const { get } = require('../routes/badges');
 
 const getAllUsers = () =>{
   const SQLQuery = `
@@ -50,16 +49,16 @@ const getAllUsers = () =>{
 
 }
 
-const createNewUser = (body, imageName) => {
+const createNewUser = (body, foto_profil) => {
     const SQLQuery = `INSERT INTO users (nama, foto_profil, poin, role, coin) 
-                        VALUES ('${body.nama}', '${imageName}', '${body.poin}', '${body.role}', '${body.coin}')`;
+                        VALUES ('${body.nama}', '${foto_profil}', '${body.poin}', '${body.role}', '${body.coin}')`;
 
                         return dbPool.execute(SQLQuery);
 }
 
-const updateUser = (body, idUser, imageName) => {
+const updateUser = (body, idUser, foto_profil) => {
     const SQLQuery = `UPDATE users
-                        SET nama='${body.nama}', foto_profil='${imageName}', poin='${body.poin}', role='${body.role}', coin='${body.coin}'
+                        SET nama='${body.nama}', foto_profil='${foto_profil}', poin='${body.poin}', role='${body.role}', coin='${body.coin}'
                         WHERE id=${idUser}`;
 
     return dbPool.execute(SQLQuery);

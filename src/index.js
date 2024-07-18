@@ -16,6 +16,12 @@ const user_achievementsRoutes = require('./routes/user_achievements');
 
 const waste_reportsRoutes = require('./routes/waste_reports');
 
+const cleaning_servicesRoutes = require('./routes/cleaning_services');
+
+const communitiesRoutes = require('./routes/communities');
+
+const user_communitiesRoutes = require('./routes/user_communities');
+
 const middlewareLogRequest = require('./middleware/logs');
 
 const upload = require('./middleware/multer');
@@ -24,7 +30,7 @@ const app = express();
 
 
 
-app.use(middlewareLogRequest);
+// app.use(middlewareLogRequest);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/assets', express.static('./public/images'))
@@ -90,7 +96,7 @@ app.use((err, req, res, next) => {
     })
 })
 
-app.use('/user_achievements',  user_achievementsRoutes);
+app.use('/user_achievements', upload.none(), user_achievementsRoutes);
 
 app.use('/waste_reports', upload.single('image'), waste_reportsRoutes);
 app.post('/upload', upload.single('image'), (req, res) => {
@@ -105,6 +111,38 @@ app.use((err, req, res, next) => {
         message: err.message
     })
 })
+
+app.use('/cleaning_services', upload.none(), cleaning_servicesRoutes);
+
+app.use('/communities', upload.single('image'), communitiesRoutes);
+app.post('/upload', upload.single('image'), (req, res) => {
+    res.json({
+        data: req.file,
+        message: 'Upload Berhasil'
+    })
+})
+
+app.use((err, req, res, next) => {
+    res.json({
+        message: err.message
+    })
+})
+
+app.use('/user_communities', upload.single('image'), user_communitiesRoutes);
+app.post('/upload', upload.single('image'), (req, res) => {
+    res.json({
+        data: req.file,
+        message: 'Upload Berhasil'
+    })
+})
+
+app.use((err, req, res, next) => {
+    res.json({
+        message: err.message
+    })
+})
+
+
 
 app.listen(PORT, () => {
     console.log(`Server berhasil di running di post ${PORT}`)

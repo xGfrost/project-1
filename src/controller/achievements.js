@@ -17,7 +17,7 @@ const getAll = async (req, res) =>{
 
 const createNew = async (req, res) => {
     const{body, file} = req;
-    const image = file.filename;
+    const image = file.fileName;
 
     if( !body.nama || !body.description || !file){
         return res.status(400).json({
@@ -31,7 +31,8 @@ const createNew = async (req, res) => {
         res.status(201).json({
             message: 'CREATE new achievements success',
             data: {
-                achievements: body, image
+                achievements: body, 
+                image: image
             }
         })
     } catch (error) {

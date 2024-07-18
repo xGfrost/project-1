@@ -12,10 +12,10 @@ const getByid = (user_id) => {
         .then(([results, fields]) => results);
 }
 
-const createNewwasteexchanges = async (body, imageName) => {
+const createNewwasteexchanges = async (body, image) => {
     const SQLInsert = `INSERT INTO waste_exchanges (user_id, weight, image, total_poin, total_coin) 
                         VALUES (?, ?, ?, ?, ?)`;
-    const values = [body.user_id, body.weight, imageName, body.total_poin, body.total_coin];
+    const values = [body.user_id, body.weight, image, body.total_poin, body.total_coin];
 
     const SQLUpdateUser = `UPDATE users 
                            SET poin = poin + ?, coin = coin + ? 

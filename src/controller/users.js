@@ -54,7 +54,7 @@ const getAllUsers = async (req, res) => {
 
 const createNewUser = async (req, res) => {
     const {body, file} = req;
-    const imageName = file.filename;
+    const foto_profil = file.filename;
 
     if( !body.nama || !file || !body.poin || !body.role || !body.coin){
         return res.status(400).json({
@@ -64,15 +64,11 @@ const createNewUser = async (req, res) => {
     }
 
     try {
-        await UsersModel.createNewUser(body, imageName);
+        await UsersModel.createNewUser(body, foto_profil);
         res.status(201).json({
             message: 'CREATE new user success',
             data: {
-                user: {
-                    nama: body.nama,
-                    poin: body.poin
-                },
-                image: imageName
+                user: body,foto_profil
             },
         })
     } catch (error) {
@@ -85,9 +81,10 @@ const createNewUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const {idUser} = req.params;
-    const {body} = req;
+    const {body, file} = req;
+    const foto_profil =file.filename;
     try {
-        await UsersModel.updateUser(body, idUser);
+        await UsersModel.updateUser(body, idUser, foto_profil);
         res.json({
             message: 'UPDATE user success',
             data: {
@@ -161,7 +158,7 @@ const getuserbyid = async (req, res) => {
           }));
 
         res.json({
-            message: 'GET  All user success',
+            message: 'GET  by user id success',
             data: formattedResults
         })
     } catch (error) {

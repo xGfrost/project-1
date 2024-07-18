@@ -21,7 +21,7 @@ const getByid = async (req, res) => {
     try {
         const data = await wasteexchangesModel.getByid(user_id);
         res.json({
-            message: 'GET id wasteexchanges success',
+            message: 'GET user id wasteexchanges success',
             data: data
         })
     } catch (error) {
@@ -34,7 +34,7 @@ const getByid = async (req, res) => {
 
 const createNewwasteexchanges = async (req, res) => {
     const {body, file} = req;
-    const imageName = file.filename;
+    const image = file.filename;
 
     if( !body.user_id || !body.weight  || !file || !body.total_poin || !body.total_coin){
         return res.status(400).json({
@@ -44,14 +44,14 @@ const createNewwasteexchanges = async (req, res) => {
     }
 
     try {
-        await wasteexchangesModel.createNewwasteexchanges(body, imageName);
+        await wasteexchangesModel.createNewwasteexchanges(body, image);
 
 
         res.status(201).json({
             message: 'CREATE new waste exchanges success',
             data:{
                 wasteexchanges: body,
-                image: imageName  
+                image: image  
             }
         })
     } catch (error) {
